@@ -182,6 +182,7 @@ var birds = require('./birds');
 
 app.use('/birds', birds);
 ```
+**需要注意的是**，**express.Router** 注册的路径是相对于 **express app** 来说的，比如说，上面的例子中，你可以访问`/birds`和`/birds/about`两个路径。
 
 ## 中间件 (*middleware*)
 
