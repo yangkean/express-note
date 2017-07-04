@@ -376,6 +376,45 @@ connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
 connection.end();
 ```
 
+另外介绍下如何用 MySQL 的 ORM 框架 Sequelize 连接 MySQL：
+
+```
+$ npm install --save sequelize
+```
+
+```javascript
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize(database, username, password, {
+  host: host,
+  dialect: 'mysql', // 指定数据库类型
+});
+
+const User = sequelize.define('user', {
+  username: {
+    type: Sequelize.STRING,
+    primaryKey: true,
+  },
+  password: {type: Sequelize.STRING},
+});
+
+sequelize.sync()
+  .then(
+    function() {
+      return User.create({
+        username: 'Sam Yang',
+        password: 'password'
+      });
+    }
+  )
+  .then(
+    function(user) {
+      console.log(user.get({
+        plain: true
+      }));
+    }
+  );
+```
+
 MongoDB 采用其对象模型驱动器 (*object model driver*) [mongoose](http://mongoosejs.com/)进行连接，是这样的：
 
 ```
